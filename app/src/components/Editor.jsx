@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 
-function EditorComponent() {
+function EditorComponent({ code, setCode }) {
   return (
     <div className="flex-1 bg-[#0e1525] flex flex-col">
       {/* File Tab */}
@@ -14,14 +14,8 @@ function EditorComponent() {
         height="100%"
         defaultLanguage="javascript"
         theme="vs-dark"
-        defaultValue={`// Welcome to Project Mentor - Shiva
-function App() {
-  console.log('Project Mentor by Shiva');
-  return <h1>Hello AI IDE!</h1>
-}
-
-export default App;
-`}
+        value={code}
+        onChange={(value) => setCode(value)}
         options={{
           fontSize: 14,
           minimap: { enabled: false },
