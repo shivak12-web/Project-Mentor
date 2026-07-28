@@ -4,25 +4,44 @@ import AIAssistant from "./components/AIAssistant";
 
 function App() {
   const [code, setCode] = useState(`// Welcome to Project Mentor - Shiva
-function App() {
-  console.log('Project Mentor by Shiva');
-  return <h1>Hello AI IDE!</h1>
+// Run kottu - output kindha vastundi!
+
+console.log('Project Mentor by Shiva');
+console.log('Hello AI IDE!');
+
+function add(a, b) {
+  return a + b;
 }
-export default App;`);
+
+console.log('2 + 3 =', add(2, 3));
+`);
   const [output, setOutput] = useState("");
 
-   const runCode = () => {
+  const runCode = () => {
     try {
       const logs = [];
       const originalLog = console.log;
-      console.log = (...args) => logs.push(args.join(" "));
+      console.log = (...args) => {
+        const formatted = args.map(arg => 
+          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+        ).join(" ");
+        logs.push(formatted);
+      };
 
-      const func = new Function(code);
+      // JSX / export lines teeseyadam - error rakunda
+      let cleanCode = code
+        .replace(/export default.*$/gm, '')
+        .replace(/return\s+<.*>.*<\/.*>/g, '')
+        .replace(/return\s+<.*\/>/g, '')
+        .replace(/return\s+<.*>/g, '');
+
+      const func = new Function(cleanCode);
       func();
 
       console.log = originalLog;
       setOutput(logs.join("\n") || "Code executed - no console output");
     } catch (e) {
+      console.log = console.log; // restore
       setOutput("Error: " + e.message);
     }
   };
@@ -42,7 +61,6 @@ export default App;`);
             <div className="text-gray-400">Output:</div>
             <div className="text-green-400 whitespace-pre-wrap">{output}</div>
           </div>
-        </div>
         {/* AI Side */}
         <AIAssistant code={code} />
       </div>
