@@ -1,5 +1,21 @@
 # 🚀 Project Mentor - AI Code Editor
 
+# Project Mentor by Shiva
+
+Live Demo: https://project-mentor-black.vercel.app
+
+Lovable.dev clone built with React + Groq AI + Tailwind
+
+Level 1 LIVE Features:
+- Templates
+- ZIP Download
+- History
+- Themes
+
+Tech: React, Vite, Groq, Vercel
+
+
+
 > AI-powered learning-first code editor - Like Lovable, but for Students!
 
 **🔗 Live Demo:** https://project-mentor-...vercel.app
